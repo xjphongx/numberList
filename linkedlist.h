@@ -21,8 +21,10 @@ public:
     linkedlist();
     ~linkedlist(); // RECURSIVE
     void addToFront(int n);
+    void selectionSort();
     double average(); // uses sum and count functions
     void writeInorder(string & file);
     void writeReversed(string & file);
+    void displayList();
 };
 #endif // end linkedlist.h

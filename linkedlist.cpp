@@ -1,4 +1,5 @@
 #include "linkedlist.h"
+#include <fstream>
 
 linkedlist::linkedlist() {
     head = nullptr;
@@ -8,8 +9,19 @@ linkedlist::~linkedlist() {
     // RECURSIVE
 }
 
-int linkedlist::count() {
+int linkedlist::count(node*current,int count) {
     // RECURSIVE
+    //traverse the list to find total nodes
+    node*cursor = new node;
+    cursor = current;
+    if(cursor==nullptr)
+    {
+        return count;//breaks the recursion loop
+    }
+    count++;
+    cursor = cursor->next;
+
+    return linkedlist::count(cursor, count);
 }
 
 void linkedlist::addToFront(int n) {
@@ -32,16 +44,43 @@ void linkedlist::addToFront(int n) {
 
 double linkedlist::average() {
     // uses sum and count functions
+    double s = 0;
+    double c = 0;
+    double ave = sum(head,s)/count(head,c);
+    return ave;
 }
 
-int linkedlist::sum() {
+int linkedlist::sum(node*current, int sum) {
     // RECURSIVE
+    node*cursor = new node;
+    cursor = current;
+
+    if(cursor == nullptr)
+    {
+        return sum;
+    }
+    sum += cursor->data;
+    cursor = cursor->next;
+    
+    return linkedlist::sum(cursor,sum);
+    
 }
 
 void linkedlist::writeInorder(string & file) {
-    
+    ofstream outFile;
+    outFile.open(file);
 
+    node*cursor = new node;
+    cursor = head;
 
+    while (cursor!=nullptr)
+    {
+        outFile << cursor->data<< " ";
+        cursor = cursor->next;
+
+    }
+
+    outFile.close();
 }
 
 void linkedlist::writeReversed(string & file) {

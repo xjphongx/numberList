@@ -1,5 +1,6 @@
 #include "linkedlist.h"
 #include <fstream>
+#include <string>
 
 linkedlist::linkedlist() {
     head = nullptr;
@@ -69,9 +70,8 @@ int linkedlist::sum(node*current, int sum) {
 void linkedlist::writeInorder(string & file) {
     ofstream outFile;
     outFile.open(file);
-
     node*cursor = new node;
-    cursor = head;
+    cursor = head; 
 
     while (cursor!=nullptr)
     {
@@ -79,12 +79,43 @@ void linkedlist::writeInorder(string & file) {
         cursor = cursor->next;
 
     }
-
     outFile.close();
 }
 
 void linkedlist::writeReversed(string & file) {
     // RECURSIVE
+    string f = file;
+    node*prev = cur;
+    node*current = new node;
+    node*temp = head;
+    current = head;
+    if(current==nullptr)
+    {
+        head = prev;
+
+        //test print
+        node*cursor = new node;
+        cursor = head;
+        while(cursor!= nullptr)
+        {
+            cout << cursor->data;
+            cursor = cursor->next;
+
+        }
+
+
+
+        return;
+    }
+
+    temp = current->next;
+    current->next = prev;
+    prev = current;
+    current = temp;
+    head = current;
+
+    return linkedlist::writeReversed(f);
+
 }
 void linkedlist::displayList()
 {

@@ -1,19 +1,39 @@
 #include "linkedlist.h"
 #include <fstream>
 #include <string>
+#include <iostream>
 
 linkedlist::linkedlist() {
     head = nullptr;
 }
 
 linkedlist::~linkedlist() {
-    // RECURSIVE
+    while(head!=nullptr)
+    {
+        removeFront(head);
+    }
+}
+void linkedlist::removeFront(node * &ptr)
+{
+    if(ptr == nullptr)
+    {
+        return;
+    }
+    node * temp;
+    temp = ptr;
+    ptr = temp->next; //head to point to whatever the pointer is pointing to
+    delete temp;
+
 }
 
+node*linkedlist::getHead()
+{
+    return head; //added this 
+}
 int linkedlist::count(node*current,int count) {
     // RECURSIVE
     //traverse the list to find total nodes
-    node*cursor = new node;
+    node*cursor;
     cursor = current;
     if(cursor==nullptr)
     {
@@ -53,7 +73,7 @@ double linkedlist::average() {
 
 int linkedlist::sum(node*current, int sum) {
     // RECURSIVE
-    node*cursor = new node;
+    node*cursor;
     cursor = current;
 
     if(cursor == nullptr)
@@ -70,7 +90,7 @@ int linkedlist::sum(node*current, int sum) {
 void linkedlist::writeInorder(string & file) {
     ofstream outFile;
     outFile.open(file);
-    node*cursor = new node;
+    node*cursor;
     cursor = head; 
 
     while (cursor!=nullptr)
@@ -84,49 +104,41 @@ void linkedlist::writeInorder(string & file) {
 
 void linkedlist::writeReversed(string & file) {
     // RECURSIVE
-    string f = file;
-    node*prev = cur;
-    node*current = new node;
-    node*temp = head;
-    current = head;
-    if(current==nullptr)
+   
+    if(head==nullptr)
     {
-        head = prev;
-
-        //test print
-        node*cursor = new node;
-        cursor = head;
-        while(cursor!= nullptr)
-        {
-            cout << cursor->data;
-            cursor = cursor->next;
-
-        }
-
-
-
+        cout<< endl;
+        cout << "end of list"<<endl;
         return;
     }
+    ofstream data;
+    data.open(file, ofstream::app);
+    outPutReversed(data, head); //recursive helper
+    
+    data.close();
 
-    temp = current->next;
-    current->next = prev;
-    prev = current;
-    current = temp;
-    head = current;
-
-    return linkedlist::writeReversed(f);
 
 }
+void linkedlist::outPutReversed(ofstream & data,node * ptr){
+    if(ptr !=nullptr)
+    {
+        outPutReversed(data, ptr->next);
+    }
+    data << ptr->data << " ";
+}
+
+
+
 void linkedlist::displayList()
 {
-    node*cursor = new node;
+    node*cursor;
     cursor = head;
     while(cursor!=nullptr)
     {
         cout<< cursor->data << " ";
         cursor= cursor->next;
     }
-
+    delete cursor;
 
 
 }

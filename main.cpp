@@ -28,6 +28,7 @@ int main() {
     
     linkedlist list;
     string file = "list.txt"; //reading in from this file
+    string output = "output.txt";
     readFile(list,file);
     list.displayList();
     
@@ -37,9 +38,10 @@ int main() {
     
     
 
-    list.writeInorder(file);
-    list.writeReversed(file);
-
+    list.writeInorder(output);//works
+    list.writeReversed(output);
+    
+    list.~linkedlist();
 
     return 0;
 }

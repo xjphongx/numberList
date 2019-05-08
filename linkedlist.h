@@ -20,11 +20,15 @@ private:
 public:
     linkedlist();
     ~linkedlist(); // RECURSIVE
+    void removeFront(node * & ptr); //bc im editing the list
+    node * getHead();
     void addToFront(int n);
     void selectionSort();
     double average(); // uses sum and count functions
     void writeInorder(string & file);
     void writeReversed(string & file);
+    void outPutReversed(ofstream & data, node * ptr);
     void displayList();
+
 };
 #endif // end linkedlist.h
